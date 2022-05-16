@@ -1,0 +1,7 @@
+{
+    "env": {
+        "DB_USER": "nikita_dubyk",
+        "DB_PASSWORD": "UEyl0C0AUbJhNVz9",
+        "DB_NAME": "food-delivery"
+    }
+}
