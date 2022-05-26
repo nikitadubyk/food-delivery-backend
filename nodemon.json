@@ -2,6 +2,7 @@
     "env": {
         "DB_USER": "nikita_dubyk",
         "DB_PASSWORD": "UEyl0C0AUbJhNVz9",
-        "DB_NAME": "food-delivery"
+        "DB_NAME": "food-delivery",
+        "SECRET_KEY": "some_secret_key_jwt"
     }
 }
