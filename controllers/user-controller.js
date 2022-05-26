@@ -84,4 +84,18 @@ const login = async (req, res, next) => {
     })
 }
 
-module.exports = { createUser, login }
+const findUser = async (req, res, next) => {
+    const userId = req.params.id
+
+    let user
+
+    try {
+        user = await User.findById(userId, '-password')
+    } catch (error) {
+        return next(new HttpError('Could not find the user', 422))
+    }
+
+    res.status(200).json({ user })
+}
+
+module.exports = { createUser, login, findUser }
