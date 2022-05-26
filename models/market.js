@@ -5,16 +5,19 @@ const Schema = mongoose.Schema
 const marketSchema = new Schema({
     name: { type: String, required: true, unique: true },
     image: { type: String, required: true },
-    timeDelivery: { type: Number, required: true },
-    priceDelivery: { type: Number, required: true },
+    priceDelivery: { type: String, required: true },
+    timeDelivery: { type: String, required: true },
     filters: [],
-    menu: [
-        // {
-        //     title: { type: String, required: true },
-        //     description: { type: String, required: true },
-        //     grams: { type: Number },
-        //     price: { type: Number, require: true },
-        // },
+    food: [
+        {
+            title: { type: String, required: true },
+            image: { type: String, required: true },
+            description: { type: String, required: true },
+            calories: { type: String, required: true },
+            gramm: { type: String, required: true },
+            price: { type: Number, required: true },
+            filter: { type: String, required: true },
+        },
     ],
 })
 
