@@ -63,10 +63,11 @@ const addNewFoodToMarket = async (req, res, next) => {
 }
 
 const createMarket = async (req, res, next) => {
-    const { name, priceDelivery, timeDelivery, filters, food } = req.body
+    const { email, name, priceDelivery, timeDelivery, filters, food } = req.body
 
     const newMarket = new Market({
         name,
+        email,
         image: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
         timeDelivery,
         priceDelivery,

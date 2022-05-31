@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer')
 const HttpError = require('../models/http-error')
 const Order = require('../models/order')
+const Market = require('../models/market')
 
 const order = async (req, res, next) => {
     const { address, delivery, name, order, phone, totalPrice, restarautId } =
@@ -22,19 +23,30 @@ const order = async (req, res, next) => {
         return next(new HttpError('Failed to place an order, try again', 500))
     }
 
+    let correctMarket
+
+    try {
+        correctMarket = await Market.findById(restarautId)
+    } catch (error) {
+        console.log(error.message)
+        return next(new HttpError('Failed to find a market, try again', 500))
+    }
+
+    correctMarket.length === 0 &&
+        next(new HttpError('Failed to find a market, try again', 500))
+
     const transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
         port: 587,
-        secure: false,
         auth: {
-            user: 'green.lynch93@ethereal.email',
-            pass: 'PNn63vNGKcTHP5C7ze',
+            user: 'bruce.corkery38@ethereal.email',
+            pass: 'mn7T6Hpj8xwZRbj3D5',
         },
     })
 
     let info = await transporter.sendMail({
         from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: 'green.lynch93@ethereal.email', // list of receivers
+        to: correctMarket.email, // list of receivers
         subject: 'Новый заказ ✔',
         html: `<b>Пришел новый заказ!</b> <br/><br/>
         <b>Адрес</b> - ${address} <br/>
