@@ -10,9 +10,9 @@ const getAllMarket = async (req, res, next) => {
         return next(new HttpError('Could not get all markets', 500))
     }
 
-    res.status(200).json({
-        markets: market.map(market => market.toObject({ getters: true })),
-    })
+    res.status(200).json(
+        market.map(market => market.toObject({ getters: true }))
+    )
 }
 
 const getMarketById = async (req, res, next) => {
@@ -26,7 +26,7 @@ const getMarketById = async (req, res, next) => {
         return next(new HttpError('Could not find market by id', 500))
     }
 
-    res.json({ market: market.toObject({ getters: true }) })
+    res.json(market.toObject({ getters: true }))
 }
 
 const addNewFoodToMarket = async (req, res, next) => {
@@ -81,7 +81,7 @@ const createMarket = async (req, res, next) => {
         return next(new HttpError('Could not create new market', 500))
     }
 
-    res.status(200).json({ market: newMarket.toObject({ getters: true }) })
+    res.status(200).json(newMarket.toObject({ getters: true }))
 }
 
 module.exports = {
