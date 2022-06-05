@@ -7,10 +7,16 @@ const orderSchema = new Schema({
     date: { type: Date, required: true },
     delivery: { type: String, required: true },
     name: { type: String, required: true },
-    order: { type: Object, required: true },
+    order: [
+        {
+            title: { type: String, required: true },
+            count: { type: Number, required: true },
+            price: { type: Number, required: true },
+        },
+    ],
     phone: { type: String, required: true },
     totalPrice: { type: Number, required: true },
-    restarautId: {
+    restarautName: {
         type: String,
         required: true,
     },

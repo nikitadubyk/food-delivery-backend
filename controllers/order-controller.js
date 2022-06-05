@@ -16,23 +16,6 @@ const order = async (req, res, next) => {
         userId,
     } = req.body
 
-    const newOrder = new Order({
-        address,
-        date: new Date(),
-        delivery,
-        name,
-        order,
-        phone,
-        totalPrice,
-        restarautId,
-    })
-
-    try {
-        await newOrder.save()
-    } catch (error) {
-        return next(new HttpError('Failed to place an order, try again', 500))
-    }
-
     let correctMarket
 
     try {
@@ -44,6 +27,23 @@ const order = async (req, res, next) => {
 
     correctMarket.length === 0 &&
         next(new HttpError('Failed to find a market, try again', 500))
+
+    const newOrder = new Order({
+        address,
+        date: new Date(),
+        delivery,
+        name,
+        order,
+        phone,
+        totalPrice,
+        restarautName: correctMarket.name,
+    })
+
+    try {
+        await newOrder.save()
+    } catch (error) {
+        return next(new HttpError('Failed to place an order, try again', 500))
+    }
 
     let correctUser
 
