@@ -83,18 +83,19 @@ const login = async (req, res, next) => {
     })
 }
 
-const findUser = async (req, res, next) => {
-    const userId = req.params.id
+const findUserOrders = async (req, res, next) => {
+    const { userId } = req.body
 
     let user
 
     try {
-        user = await User.findById(userId, '-password')
+        user = await User.findById(userId, 'orders')
     } catch (error) {
-        return next(new HttpError('Could not find the user', 422))
+        console.log(error.message)
+        return next(new HttpError('Could not find the user orders', 422))
     }
 
-    res.status(200).json({ user })
+    res.status(200).json(user)
 }
 
-module.exports = { createUser, login, findUser }
+module.exports = { createUser, login, findUserOrders }

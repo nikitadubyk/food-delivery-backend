@@ -2,13 +2,13 @@ const express = require('express')
 const {
     createUser,
     login,
-    findUser,
+    findUserOrders,
 } = require('../controllers/user-controller')
 
 const router = express.Router()
 
 router.post('/signup', createUser)
 router.post('/login', login)
-router.post('/:id', findUser)
+router.post('/', findUserOrders)
 
 module.exports = router

@@ -18,6 +18,7 @@ const order = async (req, res, next) => {
 
     const newOrder = new Order({
         address,
+        date: new Date(),
         delivery,
         name,
         order,
