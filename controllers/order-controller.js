@@ -57,7 +57,7 @@ const order = async (req, res, next) => {
         next(new HttpError('Failed to find a user, try again', 500))
 
     try {
-        correctUser.orders.push(newOrder)
+        correctUser.orders.push(newOrder._id)
         await correctUser.save()
     } catch (error) {
         return next(

@@ -89,7 +89,7 @@ const findUserOrders = async (req, res, next) => {
     let user
 
     try {
-        user = await User.findById(userId, 'orders')
+        user = await User.findById(userId, 'orders').populate('orders')
     } catch (error) {
         console.log(error.message)
         return next(new HttpError('Could not find the user orders', 422))
