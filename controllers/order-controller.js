@@ -21,7 +21,6 @@ const order = async (req, res, next) => {
     try {
         correctMarket = await Market.findById(restarautId)
     } catch (error) {
-        console.log(error.message)
         return next(new HttpError('Failed to find a market, try again', 500))
     }
 
@@ -30,7 +29,7 @@ const order = async (req, res, next) => {
 
     const newOrder = new Order({
         address,
-        date: new Date(),
+        date: new Date().toLocaleString(),
         delivery,
         name,
         order,

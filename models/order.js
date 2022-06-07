@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const orderSchema = new Schema({
     address: { type: String },
-    date: { type: Date, required: true },
+    date: { type: String, required: true },
     delivery: { type: String, required: true },
     name: { type: String, required: true },
     order: [
