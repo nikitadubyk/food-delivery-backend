@@ -11,12 +11,17 @@ const createUser = async (req, res, next) => {
     try {
         existUser = await User.find({ email: email })
     } catch (error) {
-        return next(new HttpError('Signup is failed, try again', 422))
+        return next(
+            new HttpError('Не удалось зарегистрироваться, попробуйте еще', 422)
+        )
     }
 
     if (existUser.length > 0) {
         return next(
-            new HttpError('User with this email has been registered!', 422)
+            new HttpError(
+                'Пользователь с такой почтой уже зарегистрирован!',
+                422
+            )
         )
     }
 
@@ -31,7 +36,9 @@ const createUser = async (req, res, next) => {
     try {
         await createdUser.save()
     } catch (error) {
-        return next(new HttpError('Signup failed, try again', 422))
+        return next(
+            new HttpError('Не удалось зарегистрироваться, попробуйте еще', 422)
+        )
     }
 
     const token = jwt.sign(
@@ -57,15 +64,25 @@ const login = async (req, res, next) => {
     try {
         user = await User.findOne({ email })
     } catch (error) {
-        return next(new HttpError('Login failed, could not find the user', 422))
+        return next(
+            new HttpError(
+                'Не удалось войти, пользователь с такой почтой не найден',
+                422
+            )
+        )
     }
 
-    !user.length === 0 &&
-        next(new HttpError('Login failed, could not find the user', 422))
+    if (!user || user.length === 0) {
+        return next(
+            new HttpError('Не удалось найти пользователя с такой почтой', 422)
+        )
+    }
 
     const isValidPassword = bcrypt.compareSync(password, user.password)
 
-    !isValidPassword && next(new HttpError('Password is wrong, try again', 500))
+    if (!isValidPassword) {
+        return next(new HttpError('Неправильный пароль, попробуйте еще', 500))
+    }
 
     const token = jwt.sign(
         {
@@ -92,7 +109,7 @@ const findUserOrders = async (req, res, next) => {
         user = await User.findById(userId, 'orders').populate('orders')
     } catch (error) {
         console.log(error.message)
-        return next(new HttpError('Could not find the user orders', 422))
+        return next(new HttpError('Не удалось найти заказы пользователя', 422))
     }
 
     res.status(200).json(user)

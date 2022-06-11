@@ -21,11 +21,15 @@ const order = async (req, res, next) => {
     try {
         correctMarket = await Market.findById(restarautId)
     } catch (error) {
-        return next(new HttpError('Failed to find a market, try again', 500))
+        return next(
+            new HttpError('Не удалось найти ресторан, попробуйте еще раз', 500)
+        )
     }
 
     correctMarket.length === 0 &&
-        next(new HttpError('Failed to find a market, try again', 500))
+        next(
+            new HttpError('Не удалось найти ресторан, попробуйте еще раз', 500)
+        )
 
     const newOrder = new Order({
         address,
@@ -41,7 +45,7 @@ const order = async (req, res, next) => {
     try {
         await newOrder.save()
     } catch (error) {
-        return next(new HttpError('Failed to place an order, try again', 500))
+        return next(new HttpError('Не удалось сохранить заказ', 500))
     }
 
     let correctUser
@@ -49,18 +53,31 @@ const order = async (req, res, next) => {
     try {
         correctUser = await User.findById(userId)
     } catch (error) {
-        return next(new HttpError('Failed to find a user, try again', 500))
+        return next(
+            new HttpError(
+                'Не удалось найти пользователя, попробуйте еще раз',
+                500
+            )
+        )
     }
 
     correctUser.length === 0 &&
-        next(new HttpError('Failed to find a user, try again', 500))
+        next(
+            new HttpError(
+                'Не удалось найти пользователя, попробуйте еще раз',
+                500
+            )
+        )
 
     try {
         correctUser.orders.push(newOrder._id)
         await correctUser.save()
     } catch (error) {
         return next(
-            new HttpError('Failed to save order at user, try again', 500)
+            new HttpError(
+                'Не удалось сохранить заказ у пользователя, попробуйте еще раз',
+                500
+            )
         )
     }
 

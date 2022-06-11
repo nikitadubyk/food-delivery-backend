@@ -7,7 +7,7 @@ const getAllMarket = async (req, res, next) => {
     try {
         market = await Market.find({})
     } catch (error) {
-        return next(new HttpError('Could not get all markets', 500))
+        return next(new HttpError('Не удалось получить все рестораны', 500))
     }
 
     res.status(200).json(
@@ -23,7 +23,7 @@ const getMarketById = async (req, res, next) => {
     try {
         market = await Market.findById(marketId)
     } catch (error) {
-        return next(new HttpError('Could not find market by id', 500))
+        return next(new HttpError('Не удалось найти ресторан по id', 500))
     }
 
     res.json(market.toObject({ getters: true }))
@@ -49,17 +49,22 @@ const addNewFoodToMarket = async (req, res, next) => {
     try {
         market = await Market.findById(marketId)
     } catch (error) {
-        return next(new HttpError('Could not find market by id', 500))
+        return next(new HttpError('Не удалось найти ресторан по id', 500))
     }
 
     try {
         await market.food.push(newFood)
         await market.save()
     } catch (error) {
-        return next(new HttpError('Could not add new food to market', 500))
+        return next(
+            new HttpError(
+                'Не удалось добавить еду в ресторан, попробуйте еще',
+                500
+            )
+        )
     }
 
-    res.json({ message: 'Food added success!' })
+    res.json({ message: 'Еда добавлена!' })
 }
 
 const createMarket = async (req, res, next) => {
@@ -78,7 +83,7 @@ const createMarket = async (req, res, next) => {
     try {
         await newMarket.save()
     } catch (error) {
-        return next(new HttpError('Could not create new market', 500))
+        return next(new HttpError('Не удалось создать ресторан', 500))
     }
 
     res.status(200).json(newMarket.toObject({ getters: true }))
