@@ -3,6 +3,8 @@
         "DB_USER": "nikita_dubyk",
         "DB_PASSWORD": "UEyl0C0AUbJhNVz9",
         "DB_NAME": "food-delivery",
-        "SECRET_KEY": "some_secret_key_jwt"
+        "SECRET_KEY": "some_secret_key_jwt",
+        "EMAIL": "bruce.corkery38@ethereal.email",
+        "PASSWORD_EMAIL": "mn7T6Hpj8xwZRbj3D5"
     }
 }

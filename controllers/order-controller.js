@@ -85,13 +85,13 @@ const order = async (req, res, next) => {
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-            user: 'bruce.corkery38@ethereal.email',
-            pass: 'mn7T6Hpj8xwZRbj3D5',
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD_EMAIL,
         },
     })
 
     let info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        from: `"Fred Foo 👻" <${process.env.EMAIL}>`, // sender address
         to: correctMarket.email, // list of receivers
         subject: 'Новый заказ ✔',
         html: `<b>Пришел новый заказ!</b> <br/><br/>
