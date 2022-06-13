@@ -32,11 +32,12 @@ const getMarketById = async (req, res, next) => {
 const addNewFoodToMarket = async (req, res, next) => {
     const marketId = req.params.id
 
-    const { title, description, calories, gramm, price, filter } = req.body
+    const { title, description, calories, gramm, price, filter, image } =
+        req.body
 
     const newFood = {
         title,
-        image: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+        image,
         description,
         calories,
         gramm,
