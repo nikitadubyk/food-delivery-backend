@@ -5,16 +5,8 @@ const Market = require('../models/market')
 const User = require('../models/user')
 
 const order = async (req, res, next) => {
-    const {
-        address,
-        delivery,
-        name,
-        order,
-        phone,
-        totalPrice,
-        restarautId,
-        userId,
-    } = req.body
+    const { address, delivery, name, order, phone, totalPrice, restarautId } =
+        req.body
 
     let correctMarket
 
@@ -51,7 +43,7 @@ const order = async (req, res, next) => {
     let correctUser
 
     try {
-        correctUser = await User.findById(userId)
+        correctUser = await User.findById(req.userData.userId)
     } catch (error) {
         return next(
             new HttpError(

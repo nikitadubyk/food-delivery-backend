@@ -101,12 +101,12 @@ const login = async (req, res, next) => {
 }
 
 const findUserOrders = async (req, res, next) => {
-    const { userId } = req.body
-
     let user
 
     try {
-        user = await User.findById(userId, 'orders').populate('orders')
+        user = await User.findById(req.userData.userId, 'orders').populate(
+            'orders'
+        )
     } catch (error) {
         console.log(error.message)
         return next(new HttpError('Не удалось найти заказы пользователя', 422))
