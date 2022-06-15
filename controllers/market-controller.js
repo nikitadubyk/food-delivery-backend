@@ -29,45 +29,6 @@ const getMarketById = async (req, res, next) => {
     res.json(market.toObject({ getters: true }))
 }
 
-const addNewFoodToMarket = async (req, res, next) => {
-    const marketId = req.params.id
-
-    const { title, description, calories, gramm, price, filter, image } =
-        req.body
-
-    const newFood = {
-        title,
-        image,
-        description,
-        calories,
-        gramm,
-        price,
-        filter,
-    }
-
-    let market
-
-    try {
-        market = await Market.findById(marketId)
-    } catch (error) {
-        return next(new HttpError('Не удалось найти ресторан по id', 500))
-    }
-
-    try {
-        await market.food.push(newFood)
-        await market.save()
-    } catch (error) {
-        return next(
-            new HttpError(
-                'Не удалось добавить еду в ресторан, попробуйте еще',
-                500
-            )
-        )
-    }
-
-    res.json({ message: 'Еда добавлена!' })
-}
-
 const createMarket = async (req, res, next) => {
     const { email, name, priceDelivery, timeDelivery, filters, food } = req.body
 
@@ -94,5 +55,4 @@ module.exports = {
     getAllMarket,
     createMarket,
     getMarketById,
-    addNewFoodToMarket,
 }
