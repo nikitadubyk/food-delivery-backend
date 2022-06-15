@@ -6,6 +6,7 @@ const HttpError = require('./models/http-error')
 const marketRoute = require('./routes/market-route')
 const userRoute = require('./routes/user-route')
 const orderRoute = require('./routes/order-route')
+const adminRoute = require('./routes/admin-route')
 
 const app = express()
 
@@ -26,6 +27,8 @@ app.use('/api/market', marketRoute)
 app.use('/api/users', userRoute)
 
 app.use('/api/order', orderRoute)
+
+app.use('/api/admin', adminRoute)
 
 app.use((req, res, next) => {
     const error = new HttpError('Could not find this route', 404)
