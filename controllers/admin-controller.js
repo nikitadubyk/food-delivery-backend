@@ -185,7 +185,7 @@ const createFood = async (req, res, next) => {
         )
     }
 
-    res.json({ message: 'Еда добавлена!' })
+    res.status(200).json(market.food.toObject({ getters: true }))
 }
 const patchFood = async (req, res, next) => {
     const { id } = req.params
