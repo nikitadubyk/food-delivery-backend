@@ -42,7 +42,7 @@ const login = async (req, res, next) => {
             marketId: correctAdmin.marketId,
         },
         process.env.SECRET_KEY,
-        { expiresIn: '5h' }
+        { expiresIn: '30d' }
     )
 
     res.status(200).json({
@@ -96,7 +96,7 @@ const signup = async (req, res, next) => {
             marketId,
         },
         process.env.SECRET_KEY,
-        { expiresIn: '5h' }
+        { expiresIn: '30d' }
     )
 
     res.status(200).json({

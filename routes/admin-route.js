@@ -19,19 +19,18 @@ router.post('/login', login)
 router.post('/signup', signup)
 
 router.use(checkAdmin)
-router.use(findMarket)
 
 // Работа с рестораном
-router.get('/market', getAllInfoMarket)
-router.patch('/market', patchInfoMarket)
+router.get('/market', findMarket, getAllInfoMarket)
+router.patch('/market', findMarket, patchInfoMarket)
 
 // Работа с фильтрами
-router.post('/filter', createFilter)
-router.delete('/filter', deleteFilter)
+router.post('/filter', findMarket, createFilter)
+router.delete('/filter', findMarket, deleteFilter)
 
 // Работа с едой
-router.post('/food', createFood)
-router.patch('/food/:id', patchFood)
-router.delete('/food/:id', deleteFood)
+router.post('/food', findMarket, createFood)
+router.patch('/food/:id', findMarket, patchFood)
+router.delete('/food/:id', findMarket, deleteFood)
 
 module.exports = router
