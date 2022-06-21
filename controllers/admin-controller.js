@@ -211,7 +211,7 @@ const patchFood = async (req, res, next) => {
         return next(new HttpError('Не удалось обновить товар', 500))
     }
 
-    res.status(200).json({ message: 'Товар обновлен!' })
+    res.status(200).json(market.food.toObject({ getters: true }))
 }
 const deleteFood = async (req, res, next) => {
     const { id } = req.params
