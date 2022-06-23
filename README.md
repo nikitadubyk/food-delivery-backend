@@ -24,4 +24,5 @@ Food delivery backend. Built on Node and Express and using MongoDB as the databa
 - PATCH api/admin/market - patch a restaurant admin
 - POST api/admin/filter - create new filter for foods
 - DELETE api/admin/filter - delete filter
-- POST/PATCH/DELETE api/admin/food - create/update/delete restaurant food
+- POST api/admin/food - create a restaurant food
+- PATCH/DELETE api/admin/food/:id - update/delete restaurant food
