@@ -26,3 +26,4 @@ Food delivery backend. Built on Node and Express and using MongoDB as the databa
 - DELETE api/admin/filter - delete filter
 - POST api/admin/food - create a restaurant food
 - PATCH/DELETE api/admin/food/:id - update/delete restaurant food
+- GET api/admin/orders - get all orders the restaurant
