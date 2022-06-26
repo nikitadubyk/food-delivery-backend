@@ -11,6 +11,7 @@ const {
     createFood,
     patchFood,
     deleteFood,
+    getOrders,
 } = require('../controllers/admin-controller')
 
 const router = express.Router()

@@ -20,6 +20,7 @@ const marketSchema = new Schema({
             filter: { type: String, required: true },
         },
     ],
+    orders: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Order' }],
 })
 
 module.exports = mongoose.model('Market', marketSchema)

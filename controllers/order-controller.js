@@ -36,6 +36,8 @@ const order = async (req, res, next) => {
 
     try {
         await newOrder.save()
+        await correctMarket.orders.push(newOrder._id)
+        await correctMarket.save()
     } catch (error) {
         return next(new HttpError('Не удалось сохранить заказ', 500))
     }

@@ -8,6 +8,7 @@ const userRoute = require('./routes/user-route')
 const orderRoute = require('./routes/order-route')
 const adminRoute = require('./routes/admin-route')
 
+const cors = require('cors')
 const app = express()
 
 app.use(bodyParser.json())
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 })
 
 app.use((error, req, res, next) => {
+    console.log(error)
     res.status(error.code || '500')
     res.json({ message: error.message || 'An unknown error!' })
 })

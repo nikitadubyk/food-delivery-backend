@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     let market
 
     try {
-        market = await Market.findById(marketId)
+        market = await Market.findById(marketId).populate('orders')
     } catch (error) {
         return next(
             new HttpError('Не удалось найти ресторан, попробуйте еще', 500)

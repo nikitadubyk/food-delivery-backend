@@ -2,6 +2,7 @@ const HttpError = require('../models/http-error')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Admin = require('../models/admin')
+const Order = require('../models/order')
 
 const login = async (req, res, next) => {
     const { email, password } = req.body
@@ -189,19 +190,14 @@ const createFood = async (req, res, next) => {
 }
 const patchFood = async (req, res, next) => {
     const { id } = req.params
-    const { title, description, calories, gramm, price, filter, image } =
-        req.body
+    const { title, description, price } = req.body
     const market = req.market
 
     market.food.map(food => {
         if (food.id === id) {
             food.title = title
             food.description = description
-            food.calories = calories
-            food.gramm = gramm
             food.price = price
-            food.filter = filter
-            food.image = image
         }
     })
 
