@@ -4,7 +4,7 @@
         "DB_PASSWORD": "UEyl0C0AUbJhNVz9",
         "DB_NAME": "food-delivery",
         "SECRET_KEY": "some_secret_key_jwt",
-        "EMAIL": "",
+        "EMAIL": "nikita_dubyk@mail.ru",
         "PASSWORD_EMAIL": "4HpNxPh6I3FrQbkTJOI2"
     }
 }

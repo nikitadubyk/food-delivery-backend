@@ -98,7 +98,9 @@ const order = async (req, res, next) => {
         ${order
             .map(
                 order =>
-                    `<b>Товар:</b> ${order.title} - <b>Количество:</b> ${order.count} <br/>`
+                    `<b>Товар:</b> ${order.title} x ${order.count} - ${
+                        order.price * order.count
+                    }₽ <br/>`
             )
             .join('')} 
         <br/><br/>
