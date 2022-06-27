@@ -43,16 +43,17 @@ const createUser = async (req, res, next) => {
 
     const token = jwt.sign(
         {
-            userEmail: createUser.email,
             userId: createUser.id,
         },
         process.env.SECRET_KEY,
-        { expiresIn: '5h' }
+        { expiresIn: '24h' }
     )
+
+    const tokenExpiration = new Date().getTime() + 1000 * 60 * 60 * 24
 
     res.status(200).json({
         userId: createdUser.id,
-        userEmail: createdUser.email,
+        expiration: tokenExpiration,
         token,
     })
 }
@@ -86,16 +87,17 @@ const login = async (req, res, next) => {
 
     const token = jwt.sign(
         {
-            userEmail: user.email,
             userId: user.id,
         },
         process.env.SECRET_KEY,
-        { expiresIn: '5h' }
+        { expiresIn: '24h' }
     )
+
+    const tokenExpiration = new Date().getTime() + 1000 * 60 * 60 * 24
 
     res.status(200).json({
         userId: user.id,
-        userEmail: user.email,
+        expiration: tokenExpiration,
         token,
     })
 }
@@ -108,7 +110,6 @@ const findUserOrders = async (req, res, next) => {
             'orders'
         )
     } catch (error) {
-        console.log(error.message)
         return next(new HttpError('Не удалось найти заказы пользователя', 422))
     }
 
