@@ -76,16 +76,17 @@ const order = async (req, res, next) => {
     }
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
+        host: 'smtp.mail.ru',
+        port: 465,
+        secure: true,
         auth: {
             user: process.env.EMAIL,
             pass: process.env.PASSWORD_EMAIL,
         },
     })
 
-    let info = await transporter.sendMail({
-        from: `"Fred Foo 👻" <${process.env.EMAIL}>`, // sender address
+    let message = {
+        from: `"Доставка еды" <${process.env.EMAIL}>`, // sender address
         to: correctMarket.email, // list of receivers
         subject: 'Новый заказ ✔',
         html: `<b>Пришел новый заказ!</b> <br/><br/>
@@ -94,17 +95,21 @@ const order = async (req, res, next) => {
         <b>Имя</b> - ${name} <br/>
         <b>Телефон</b> - ${phone}<br/><br/>
         <b>Заказ</b>: <br/>
-        ${order.map(
-            order =>
-                `<b>Товар:</b> ${order.title} - <b>Количество:</b> ${order.count} <br/>`
-        )} <br/><br/>
+        ${order
+            .map(
+                order =>
+                    `<b>Товар:</b> ${order.title} - <b>Количество:</b> ${order.count} <br/>`
+            )
+            .join('')} 
+        <br/><br/>
 
         <b>Общая сумма заказа:</b> ${totalPrice} рублей
         `,
-    })
+    }
 
-    transporter.sendMail(info, (error, info) => {
+    transporter.sendMail(message, (error, info) => {
         if (error) {
+            console.log(error.message)
             res.status(500).json({
                 message: 'Упс, произошла ошибка при отправке письма',
             })

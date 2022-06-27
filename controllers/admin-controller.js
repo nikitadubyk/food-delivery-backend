@@ -2,7 +2,6 @@ const HttpError = require('../models/http-error')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Admin = require('../models/admin')
-const Order = require('../models/order')
 
 const login = async (req, res, next) => {
     const { email, password } = req.body
@@ -46,8 +45,11 @@ const login = async (req, res, next) => {
         { expiresIn: '30d' }
     )
 
+    const tokenExpiration = new Date().getTime() + 1000 * 60 * 60 * 24 * 30
+
     res.status(200).json({
         marketId: correctAdmin.marketId,
+        expiration: tokenExpiration,
         token,
     })
 }
@@ -100,8 +102,11 @@ const signup = async (req, res, next) => {
         { expiresIn: '30d' }
     )
 
+    const tokenExpiration = new Date().getTime() + 1000 * 60 * 60 * 24 * 30
+
     res.status(200).json({
         marketId,
+        expiration: tokenExpiration,
         token,
     })
 }
@@ -160,8 +165,16 @@ const deleteFilter = async (req, res, next) => {
 }
 
 const createFood = async (req, res, next) => {
-    const { title, description, calories, gramm, price, filter, image } =
-        req.body
+    const {
+        title,
+        description,
+        calories,
+        gramm,
+        price,
+        filter,
+        image,
+        position,
+    } = req.body
     const market = req.market
 
     const newFood = {
@@ -175,7 +188,7 @@ const createFood = async (req, res, next) => {
     }
 
     try {
-        await market.food.push(newFood)
+        market.food.splice(position - 1, 0, newFood)
         await market.save()
     } catch (error) {
         return next(
