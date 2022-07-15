@@ -1,8 +1,9 @@
 const nodemailer = require('nodemailer')
-const HttpError = require('../models/http-error')
+
+const User = require('../models/user')
 const Order = require('../models/order')
 const Market = require('../models/market')
-const User = require('../models/user')
+const HttpError = require('../models/http-error')
 
 const order = async (req, res, next) => {
     const { address, delivery, name, order, phone, totalPrice, restarautId } =
@@ -24,13 +25,13 @@ const order = async (req, res, next) => {
         )
 
     const newOrder = new Order({
-        address,
-        date: new Date().toLocaleString(),
-        delivery,
         name,
         order,
         phone,
+        address,
+        delivery,
         totalPrice,
+        date: new Date().toLocaleString(),
         restarautName: correctMarket.name,
     })
 

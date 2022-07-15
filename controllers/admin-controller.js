@@ -1,7 +1,8 @@
-const HttpError = require('../models/http-error')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
 const Admin = require('../models/admin')
+const HttpError = require('../models/http-error')
 
 const login = async (req, res, next) => {
     const { email, password } = req.body
@@ -48,9 +49,9 @@ const login = async (req, res, next) => {
     const tokenExpiration = new Date().getTime() + 1000 * 60 * 60 * 24 * 30
 
     res.status(200).json({
-        marketId: correctAdmin.marketId,
-        expiration: tokenExpiration,
         token,
+        expiration: tokenExpiration,
+        marketId: correctAdmin.marketId,
     })
 }
 
@@ -82,8 +83,8 @@ const signup = async (req, res, next) => {
 
     const newAdmin = new Admin({
         email,
-        password: hashedPassword,
         marketId,
+        password: hashedPassword,
     })
 
     try {
@@ -105,9 +106,9 @@ const signup = async (req, res, next) => {
     const tokenExpiration = new Date().getTime() + 1000 * 60 * 60 * 24 * 30
 
     res.status(200).json({
+        token,
         marketId,
         expiration: tokenExpiration,
-        token,
     })
 }
 
@@ -137,8 +138,8 @@ const patchInfoMarket = async (req, res, next) => {
 }
 
 const createFilter = async (req, res, next) => {
-    const { filter } = req.body
     const market = req.market
+    const { filter } = req.body
 
     try {
         await market.filters.push(filter)
@@ -151,8 +152,8 @@ const createFilter = async (req, res, next) => {
 }
 
 const deleteFilter = async (req, res, next) => {
-    const { filter } = req.body
     const market = req.market
+    const { filter } = req.body
 
     try {
         await market.filters.pull(filter)
@@ -167,24 +168,24 @@ const deleteFilter = async (req, res, next) => {
 const createFood = async (req, res, next) => {
     const {
         title,
-        description,
-        calories,
         gramm,
         price,
-        filter,
         image,
+        filter,
+        calories,
         position,
+        description,
     } = req.body
     const market = req.market
 
     const newFood = {
         title,
         image,
-        description,
-        calories,
         gramm,
         price,
         filter,
+        calories,
+        description,
     }
 
     try {
@@ -203,14 +204,14 @@ const createFood = async (req, res, next) => {
 }
 const patchFood = async (req, res, next) => {
     const { id } = req.params
-    const { title, description, price } = req.body
     const market = req.market
+    const { title, description, price } = req.body
 
     market.food.map(food => {
         if (food.id === id) {
             food.title = title
-            food.description = description
             food.price = price
+            food.description = description
         }
     })
 
@@ -240,11 +241,11 @@ const deleteFood = async (req, res, next) => {
 module.exports = {
     login,
     signup,
-    getAllInfoMarket,
-    patchInfoMarket,
+    patchFood,
+    createFood,
+    deleteFood,
     createFilter,
     deleteFilter,
-    createFood,
-    patchFood,
-    deleteFood,
+    patchInfoMarket,
+    getAllInfoMarket,
 }

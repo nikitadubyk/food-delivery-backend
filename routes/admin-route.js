@@ -1,17 +1,17 @@
 const express = require('express')
+
 const checkAdmin = require('../middleware/check-admin')
 const findMarket = require('../middleware/find-market')
 const {
     login,
     signup,
-    getAllInfoMarket,
-    patchInfoMarket,
+    patchFood,
+    createFood,
+    deleteFood,
     createFilter,
     deleteFilter,
-    createFood,
-    patchFood,
-    deleteFood,
-    getOrders,
+    patchInfoMarket,
+    getAllInfoMarket,
 } = require('../controllers/admin-controller')
 
 const router = express.Router()

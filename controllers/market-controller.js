@@ -34,12 +34,12 @@ const createMarket = async (req, res, next) => {
 
     const newMarket = new Market({
         name,
+        food,
         email,
-        image: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+        filters,
         timeDelivery,
         priceDelivery,
-        filters,
-        food,
+        image: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
     })
 
     try {

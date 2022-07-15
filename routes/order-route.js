@@ -1,6 +1,7 @@
 const express = require('express')
-const { order } = require('../controllers/order-controller')
+
 const checkAuth = require('../middleware/check-auth')
+const { order } = require('../controllers/order-controller')
 
 const router = express.Router()
 

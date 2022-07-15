@@ -1,7 +1,8 @@
-const HttpError = require('../models/http-error')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
 const User = require('../models/user')
+const HttpError = require('../models/http-error')
 
 const createUser = async (req, res, next) => {
     const { email, password, name } = req.body
@@ -28,9 +29,9 @@ const createUser = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const createdUser = new User({
+        name,
         email,
         password: hashedPassword,
-        name,
     })
 
     try {
@@ -52,9 +53,9 @@ const createUser = async (req, res, next) => {
     const tokenExpiration = new Date().getTime() + 1000 * 60 * 60 * 24
 
     res.status(200).json({
+        token,
         userId: createdUser.id,
         expiration: tokenExpiration,
-        token,
     })
 }
 
@@ -96,9 +97,9 @@ const login = async (req, res, next) => {
     const tokenExpiration = new Date().getTime() + 1000 * 60 * 60 * 24
 
     res.status(200).json({
+        token,
         userId: user.id,
         expiration: tokenExpiration,
-        token,
     })
 }
 

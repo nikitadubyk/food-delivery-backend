@@ -1,5 +1,5 @@
-const HttpError = require('../models/http-error')
 const Market = require('../models/market')
+const HttpError = require('../models/http-error')
 
 module.exports = async (req, res, next) => {
     const { marketId } = req.adminData
